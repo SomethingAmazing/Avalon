@@ -27,7 +27,7 @@ class Avalon
 		self::$instance = $this;
 		
 		$this->uri	=& loadclass('uri');
-		$this->view =& loadclass('view');
+		$this->view	=& loadclass('view');
 	}
 	
 	public static function &get_instance()

@@ -76,4 +76,3 @@ class Router
 			$this->method = $segs[1];
 	}
 }
-?>

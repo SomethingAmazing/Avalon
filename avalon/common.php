@@ -29,7 +29,7 @@ function &loadclass($class)
 	
 	if(isset($classes[$class])) return $classes[$class];
 	
-	include(BASEPATH.'avalon/libraries/'.$class.'.class.php');
+	include(BASEPATH.'avalon/libraries/'.$class.'.php');
 	$classes[$class] = new $class();
 	
 	return $classes[$class];

@@ -22,8 +22,8 @@ require(BASEPATH.'avalon/version.php');
 
 // Load core files
 require(BASEPATH.'avalon/common.php');
-require(BASEPATH.'avalon/libraries/controller.class.php');
-require(BASEPATH.'avalon/libraries/router.class.php');
+require(BASEPATH.'avalon/libraries/controller.php');
+require(BASEPATH.'avalon/libraries/router.php');
 
 // Router
 $router = new Router;

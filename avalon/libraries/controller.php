@@ -26,8 +26,10 @@ class Avalon
 	{
 		self::$instance = $this;
 		
-		$this->uri	=& loadclass('uri');
-		$this->view	=& loadclass('view');
+		$this->load	=& loadclass('loader');
+		
+		$this->load->library('uri');
+		$this->load->library('view');
 	}
 	
 	public static function &get_instance()
@@ -35,3 +37,5 @@ class Avalon
 		return self::$instance;
 	}
 }
+
+class Controller extends Avalon {}

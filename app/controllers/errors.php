@@ -18,12 +18,16 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Errors extends Avalon
+class Errors extends Controller
 {
 	public function notFound()
 	{
 		global $controller, $method;
 		
-		die("The controller '".$controller."' could not be found.");
+		$this->set('controller',$controller);
+		$this->set('method',$method);
+		
+		$this->view->load('errors/404');
+		$this->view->display();
 	}
 }

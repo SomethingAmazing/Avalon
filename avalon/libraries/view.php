@@ -21,7 +21,7 @@
 class View
 {
 	private $final_output = '';
-	private $ob_level;	
+	private $ob_level;
 	
 	// Constructor
 	public function __construct()
@@ -33,18 +33,16 @@ class View
 	/**
 	 * Load View
 	 * @param string $file Name of the file.
-	 * @param array $args Arguments to be passed to the view.
 	 * @param bool $return Return the view code or not.
 	 */
-	public function load($view,$args=array(),$return=false)
+	public function load($view,$return=false)
 	{
 		$this->keys();
-		
 		$this->view =& $this;
 		
-		if(is_array($args))
-			foreach($args as $arg => $value)
-				$$arg = $value;
+		$avalon =& getAvalon();
+		foreach($avalon->vars as $var => $value)
+			$$var = $value;
 		
 		if(!file_exists(APPPATH.'views/'.$view.'.php'))
 		{

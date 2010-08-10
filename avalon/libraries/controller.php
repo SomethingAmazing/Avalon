@@ -38,4 +38,11 @@ class Avalon
 	}
 }
 
-class Controller extends Avalon {}
+class Controller extends Avalon {
+	public $vars = array();
+	
+	public function set($var,$value)
+	{
+		$this->vars[$var] = $value;
+	}
+}

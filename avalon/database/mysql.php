@@ -38,7 +38,7 @@ class MySQL
 	 */
 	public function connect($server,$username,$password)
 	{
-		$this->link = mysql_connect($server,$user,$pass) or $this->halt();
+		$this->link = mysql_connect($server,$username,$password) or $this->halt();
 	}
 	
 	/**
@@ -48,7 +48,7 @@ class MySQL
 	 */
 	public function select_db($databse)
 	{
-		return mysql_select_db($dbname,$this->link);
+		return mysql_select_db($databse,$this->link);
 	}
 	
 	/**
@@ -73,6 +73,15 @@ class MySQL
 	}
 	
 	/**
+	 * Num Rows
+	 * Get number of rows in result.
+	 */
+	public function numrows($result)
+	{
+		return mysql_num_rows($result);
+	}
+	
+	/**
 	 * Select
 	 * Easy SELECT query builder.
 	 * @param string $table Table name to query
@@ -80,7 +89,30 @@ class MySQL
 	 */
 	public function select($table,$args=array())
 	{
+		$query = 'SELECT * FROM '.$table.' ';
 		
+		$orderby = (isset($args['orderby']) ? " ORDER BY ".$args['orderby'] : NULL);
+		unset($args['orderby']);
+		
+		$limit = (isset($args['limit']) ? ' LIMIT '.$args['limit'] : NULL);
+		unset($args['limit']);
+		
+		if(is_array($args['where'])) {
+			$fields = array();
+			foreach($args['where'] as $field => $value)
+			{
+				$fields[] = $field."='".$value."'";
+			}
+			$fields = ' WHERE '.implode(' AND ',$fields);
+		} else {
+			$fields = $args['where'];
+		}
+		
+		$query .= $fields;
+		$query .= $orderby;
+		$query .= $limit;
+		
+		return $this->query($query);
 	}
 	
 	/**

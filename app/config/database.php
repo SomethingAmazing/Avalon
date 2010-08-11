@@ -18,33 +18,14 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Avalon
-{
-	public static $instance;
-	
-	public function __construct()
-	{
-		global $db;
-		
-		self::$instance = $this;
-		
-		$this->load	=& loadclass('loader');
-		$this->db = $db;
-		$this->load->library('uri');
-		$this->load->library('view');
-	}
-	
-	public static function &get_instance()
-	{
-		return self::$instance;
-	}
-}
-
-class Controller extends Avalon {
-	public $vars = array();
-	
-	public function set($var,$value)
-	{
-		$this->vars[$var] = $value;
-	}
-}
+$database = array(
+	// To enable the database, change this to true.
+	'enable'	=> false,
+	// The driver to use.
+	'driver'	=> 'MySQL',
+	// The database information.
+	'server'	=> 'localhost',
+	'username'	=> 'root',
+	'password'	=> 'root',
+	'database'	=> 'avalon'
+);

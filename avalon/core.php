@@ -30,6 +30,14 @@ $router = new Router;
 $controller = $router->controller;
 $method = $router->method;
 
+// Database
+require(APPPATH.'config/database.php');
+if($database['enable'])
+{
+	require(BASEPATH.'avalon/database/'.$database['driver'].'.php');
+	$db = new $database['driver']($database);
+}
+
 // Load the controller
 if(file_exists(APPPATH.'controllers/'.$controller.'.php'))
 {

@@ -34,3 +34,13 @@ function &loadclass($class)
 	
 	return $classes[$class];
 }
+
+function error($title,$message)
+{
+	print('<blockquote style="width: 800px; margin: 0 auto; font-family: arial; font-size: 14px;">');
+	print('<h1 style="margin:0;">'.$title.'</h1>');
+	print('<div style="padding: 5px; border: 2px solid darkred; background: #f9f9f9;">'.$message.'</div>');
+	print('<small>Avalon '.AVALONVER);
+	print('</blockquote>');
+	exit;
+}

@@ -42,16 +42,17 @@ if($database['enable'])
 if(file_exists(APPPATH.'controllers/'.$controller.'.php'))
 {
 	include(APPPATH.'controllers/'.$controller.'.php');
-	//$avalon = new $controller();
 	
+	// Check if the method exists..
 	if(method_exists($controller,$method))
 	{
 		$avalon = new $controller();
 		$avalon->$method();
 	}
+	// The method doesn't exist, output the error.
 	else
 	{
-		die("The method '".$method."' for controller '".$controller."' doesn't exist. exiting.");
+		error("Error","The method '".$method."' for controller '".$controller."' doesn't exist.");
 	}
 }
 // Controller doesn't exist, load error controller

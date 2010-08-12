@@ -76,7 +76,7 @@ class MySQL
 	 * Num Rows
 	 * Get number of rows in result.
 	 */
-	public function numrows($result)
+	public function num_rows($result)
 	{
 		return mysql_num_rows($result);
 	}
@@ -145,7 +145,26 @@ class MySQL
 	 */
 	public function delete($table,$data=array())
 	{
-	
+		$query = 'DELETE FROM '.$table.' ';
+		
+		$limit = (isset($args['limit']) ? ' LIMIT '.$args['limit'] : NULL);
+		unset($args['limit']);
+		
+		if(is_array($args['where'])) {
+			$fields = array();
+			foreach($args['where'] as $field => $value)
+			{
+				$fields[] = $field."='".$value."'";
+			}
+			$fields = ' WHERE '.implode(' AND ',$fields);
+		} else {
+			$fields = ' WHERE '.$args['where'];
+		}
+		
+		$query .= $fields;
+		$query .= $limit;
+		
+		$this->query($query);
 	}
 	
 	/**
@@ -157,9 +176,31 @@ class MySQL
 		return mysql_insert_id($this->link);
 	}
 	
+	/**
+	 * Close Connection
+	 * Closes the connection to the database.
+	 */
 	public function close()
 	{
 		mysql_close($this->link);
+	}
+	
+	// MySQL Error Number
+	private function errno()
+	{
+		return mysql_errno($this->link);
+	}
+	
+	// MySQL Error
+	private function error()
+	{
+		return mysql_error($this->link);
+	}
+	
+	// The halt function. used to display errors..
+	private function halt()
+	{
+		error('Database Error', '#'.$this->errno().': '.$this->error());
 	}
 	
 	public function __destruct()

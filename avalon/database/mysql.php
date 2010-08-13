@@ -64,6 +64,58 @@ class MySQL
 	}
 	
 	/**
+	 * Query First
+	 * Query and fetch the array of the first row returned.
+	 * @param string $query The query.
+	 */
+	public function query_first($query)
+	{
+		return $this->fetcharray($this->query($query));
+	}
+	
+	/**
+	 * Escape String
+	 * Escapes a string for use in a query.
+	 * @param string $string String to escape.
+	 * @return string
+	 */
+	public function escape_string($string)
+	{
+		return mysql_escape_string($string);
+	}
+	
+	/**
+	 * Shortcut for MySQL::escape_string
+	 * @param string $string String to escape.
+	 * @return string
+	 */
+	public function es($string)
+	{
+		return $this->escape_string($string);
+	}
+	
+	/**
+	 * Real Escape String
+	 * Escapes special characters from a string for use in a query.
+	 * @param string $string String to escape.
+	 * @return string
+	 */
+	public function real_escape_string($string)
+	{
+		return mysql_real_escape_string($string);
+	}
+	
+	/**
+	 * Shortcut for MySQL::real_escape_string
+	 * @param string $string String to escape.
+	 * @return string
+	 */
+	public function res($string)
+	{
+		return $this->real_escape_string($string);
+	}
+	
+	/**
 	 * Fetch Array
 	 * Returns an array that corresponds to the fetched row.
 	 */

@@ -21,7 +21,14 @@
 class Loader
 {
 	private $classes = array();
+	private $models = array();
 	
+	/**
+	 * Load Library
+	 * Loads a libray/class.
+	 * @param string $class The class name.
+	 * @return object
+	 */
 	public function library($class)
 	{
 		if(isset($this->classes[$class])) return $this->classes[$class];
@@ -42,11 +49,52 @@ class Loader
 		$this->classes[$class] = new $class();
 		
 		$avalon =& getAvalon();
-		$avalon->$class = $this->classes[$class];
+		$this->classes[$class]->db =& $avalon->db;
+		
+		// Assign to models
+		foreach($this->models as $model)
+			$avalon->$model->$class =& $this->classes[$class];
+		
+		return $this->classes[$class];
+	}
+	
+	/**
+	 * Load Model
+	 * Loads a model.
+	 * @param string $class The model name.
+	 * @return bool
+	 */
+	public function model($model)
+	{
+		if(isset($this->models[$model])) return $this->models[$model];
+		
+		if(file_exists(BASEPATH.'avalon/models/'.$model.'.php'))
+		{
+			include(BASEPATH.'avalon/models/'.$model.'.php');
+		}
+		elseif(file_exists(APPPATH.'models/'.$model.'.php'))
+		{
+			include(APPPATH.'models/'.$model.'.php');
+		}
+		else
+		{
+			return false;
+		}
+		
+		$this->models[$model] = new $model();
+		
+		$avalon =& getAvalon();
+		$this->models[$model]->db =& $avalon->db;
+		$avalon->$model =& $this->models[$model];
+		
+		// Assign to libraries
+		foreach($this->classes as $class)
+			$avalon->$class->$model =& $this->models[$model];
 		
 		return true;
 	}
 	
+	// probably dont need this?
 	private function getKeys()
 	{
 		$avalon = getAvalon();

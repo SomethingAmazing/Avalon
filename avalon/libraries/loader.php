@@ -53,7 +53,7 @@ class Loader
 		
 		// Assign to models
 		foreach($this->models as $model)
-			$avalon->$model->$class =& $this->classes[$class];
+			$model->$class =& $this->classes[$class];
 		
 		return $this->classes[$class];
 	}
@@ -89,7 +89,7 @@ class Loader
 		
 		// Assign to libraries
 		foreach($this->classes as $class)
-			$avalon->$class->$model =& $this->models[$model];
+			$class->$model =& $this->models[$model];
 		
 		return true;
 	}

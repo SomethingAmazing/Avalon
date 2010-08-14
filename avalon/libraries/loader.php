@@ -52,8 +52,8 @@ class Loader
 		$this->classes[$class]->db =& $avalon->db;
 		
 		// Assign to models
-		foreach($this->models as $model)
-			$model->$class =& $this->classes[$class];
+		//foreach($this->models as $model)
+			//$model->$class =& $this->classes[$class];
 		
 		return $this->classes[$class];
 	}

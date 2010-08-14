@@ -48,12 +48,11 @@ class Loader
 		
 		$this->classes[$class] = new $class();
 		
+		// Assign some required things
 		$avalon =& getAvalon();
 		$this->classes[$class]->db =& $avalon->db;
-		
-		// Assign to models
-		//foreach($this->models as $model)
-			//$model->$class =& $this->classes[$class];
+		$this->classes[$class]->uri =& $avalon->uri;
+		$this->classes[$class]->load =& $avalon->load;
 		
 		return $this->classes[$class];
 	}
@@ -85,6 +84,8 @@ class Loader
 		
 		$avalon =& getAvalon();
 		$this->models[$model]->db =& $avalon->db;
+		$this->classes[$class]->uri =& $avalon->uri;
+		$this->classes[$class]->load =& $avalon->load;
 		$avalon->$model =& $this->models[$model];
 		
 		// Assign to libraries
@@ -92,6 +93,39 @@ class Loader
 			$class->$model =& $this->models[$model];
 		
 		return true;
+	}
+	
+	/**
+	 * Load Helper
+	 * Loads a helper into the View class.
+	 * @param string $helper The helper name.
+	 */
+	public function helper($helper)
+	{
+		if(isset($this->helpers[$helper])) return $this->helpers[$helper];
+		
+		if(file_exists(BASEPATH.'avalon/helpers/'.$helper.'.php'))
+		{
+			include(BASEPATH.'avalon/helpers/'.$helper.'.php');
+		}
+		elseif(file_exists(APPPATH.'helpers/'.$helper.'.php'))
+		{
+			include(APPPATH.'helpers/'.$helper.'.php');
+		}
+		else
+		{
+			return false;
+		}
+		
+		$this->helpers[$helper] = new $helper();
+		
+		$avalon =& getAvalon();
+		$this->helpers[$helper]->load =& $this;
+		$this->helpers[$helper]->uri =& $avalon->uri;
+		$avalon->view->$helper =& $this->helpers[$helper];
+		
+		return true;
+
 	}
 	
 	// probably dont need this?

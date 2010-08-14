@@ -82,11 +82,12 @@ class Loader
 		
 		$this->models[$model] = new $model();
 		
+		// Assign core libraries and models
 		$avalon =& getAvalon();
-		$this->models[$model]->db =& $avalon->db;
-		$this->classes[$class]->uri =& $avalon->uri;
-		$this->classes[$class]->load =& $avalon->load;
 		$avalon->$model =& $this->models[$model];
+		foreach(array_keys(get_object_vars($avalon)) as $key)
+			if(!isset($this->classes[$class]->$key) && is_object($avalon->$key))
+				$this->classes[$class]->$key =& $avalon->$key;
 		
 		// Assign to libraries
 		foreach($this->classes as $class)
@@ -119,13 +120,13 @@ class Loader
 		
 		$this->helpers[$helper] = new $helper();
 		
+		// Assign core libraries
 		$avalon =& getAvalon();
-		$this->helpers[$helper]->load =& $this;
+		$this->helpers[$helper]->load =& $avalon->load;
 		$this->helpers[$helper]->uri =& $avalon->uri;
 		$avalon->view->$helper =& $this->helpers[$helper];
 		
 		return true;
-
 	}
 	
 	// probably dont need this?

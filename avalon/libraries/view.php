@@ -22,6 +22,7 @@ class View
 {
 	private $final_output = '';
 	private $ob_level;
+	public $helpers = array();
 	
 	// Constructor
 	public function __construct()
@@ -107,8 +108,7 @@ class View
 	// Internal function to display an error.
 	private function error($message)
 	{
-		print('<blockquote><div style="border:1px solid darkred;padding:10px;background:#fff;color:000;">'.$message.'</div></blockquote>');
-		exit;
+		error('View Error',$message);
 	}
 	
 	private function keys()

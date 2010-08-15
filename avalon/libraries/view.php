@@ -32,6 +32,7 @@ class View
 	
 	/**
 	 * Load View
+	 *
 	 * @param string $file Name of the file.
 	 * @param bool $return Return the view code or not.
 	 */
@@ -40,9 +41,14 @@ class View
 		$this->keys();
 		$this->view =& $this;
 		
+		// Get variables set from the controller (or other places).
 		$avalon =& getAvalon();
 		foreach($avalon->vars as $var => $value)
 			$$var = $value;
+		
+		// Make helpers easily accessible.
+		foreach($this->helpers as $helper_name => $helper)
+			$$helper_name = $helper;
 		
 		if(!file_exists(APPPATH.'views/'.$view.'.php'))
 		{
@@ -75,6 +81,7 @@ class View
 	/**
 	 * Display
 	 * Displays the built layout.
+	 *
 	 * @param string $layout The layout file in which to use.
 	 */
 	public function display($layout='default')

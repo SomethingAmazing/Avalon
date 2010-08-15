@@ -23,6 +23,12 @@ function &getAvalon()
 	return Avalon::get_instance();
 }
 
+/**
+ * Load Class
+ * Loads a class if it is not already loaded.
+ *
+ * @param string $class The class name.
+ */
 function &loadclass($class)
 {
 	static $classes = array();
@@ -32,9 +38,27 @@ function &loadclass($class)
 	include(BASEPATH.'avalon/libraries/'.$class.'.php');
 	$classes[$class] = new $class();
 	
+	loaded_classes($class);
+	
 	return $classes[$class];
 }
 
+function loaded_classes($class = '')
+{
+	static $loaded = array();
+	
+	if($class != '') $loaded[strtolower($class)] = $class;
+	
+	return $loaded;
+}
+
+/**
+ * Error
+ * Prints a nice little error message.
+ *
+ * @param string $title The error title.
+ * @param string $message The error message.
+ */
 function error($title,$message)
 {
 	print('<blockquote style="width: 800px; margin: 0 auto; font-family: arial; font-size: 14px;">');

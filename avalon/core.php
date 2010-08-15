@@ -23,12 +23,10 @@ require(BASEPATH.'avalon/version.php');
 // Load core files
 require(BASEPATH.'avalon/common.php');
 require(BASEPATH.'avalon/libraries/controller.php');
-require(BASEPATH.'avalon/libraries/router.php');
 
-// Router
-$router = new Router;
-$controller = $router->controller;
-$method = $router->method;
+// Hooks
+$hooks = loadclass('hooks');
+$hooks->hook('pre_system');
 
 // Database
 require(APPPATH.'config/database.php');
@@ -38,7 +36,13 @@ if($database['enable'])
 	$db = new $database['driver']($database);
 }
 
+// Router
+$router = loadclass('router');
+$controller = $router->controller;
+$method = $router->method;
+
 // Load the controller
+$hooks->hook('pre_controller');
 if(file_exists(APPPATH.'controllers/'.$controller.'.php'))
 {
 	include(APPPATH.'controllers/'.$controller.'.php');
@@ -63,3 +67,6 @@ else
 	$avalon->notFound();
 	exit;
 }
+$hooks->hook('post_controller');
+
+$hooks->hook('post_system');

@@ -28,10 +28,13 @@ class Avalon
 		
 		self::$instance = $this;
 		
-		$this->load	=& loadclass('loader');
-		$this->db	=& $db;
-		$this->uri	= $this->load->library('uri');
-		$this->view	= $this->load->library('view');
+		foreach(loaded_classes() as $var => $class)
+			$this->$var =& loadclass($class);
+		
+		$this->load		=& loadclass('loader');
+		$this->db		=& $db;
+		$this->uri		= $this->load->library('uri');
+		$this->view		= $this->load->library('view');
 	}
 	
 	public static function &get_instance()
@@ -43,6 +46,12 @@ class Avalon
 class Controller extends Avalon {
 	public $vars = array();
 	
+	/**
+	 * Set Variable
+	 *
+	 * @param string $var Variable name.
+	 * @param mixed $value Value of the variable.
+	 */
 	public function set($var,$value)
 	{
 		$this->vars[$var] = $value;

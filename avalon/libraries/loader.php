@@ -26,6 +26,7 @@ class Loader
 	/**
 	 * Load Library
 	 * Loads a libray/class.
+	 *
 	 * @param string $class The class name.
 	 * @return object
 	 */
@@ -60,6 +61,7 @@ class Loader
 	/**
 	 * Load Model
 	 * Loads a model.
+	 *
 	 * @param string $class The model name.
 	 * @return bool
 	 */
@@ -99,6 +101,7 @@ class Loader
 	/**
 	 * Load Helper
 	 * Loads a helper into the View class.
+	 *
 	 * @param string $helper The helper name.
 	 */
 	public function helper($helper)
@@ -124,7 +127,7 @@ class Loader
 		$avalon =& getAvalon();
 		$this->helpers[$helper]->load =& $avalon->load;
 		$this->helpers[$helper]->uri =& $avalon->uri;
-		$avalon->view->$helper =& $this->helpers[$helper];
+		$avalon->view->helpers[$helper] =& $this->helpers[$helper];
 		
 		return true;
 	}

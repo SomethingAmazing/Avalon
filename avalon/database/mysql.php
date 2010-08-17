@@ -70,7 +70,7 @@ class MySQL
 	 */
 	public function query_first($query)
 	{
-		return $this->fetcharray($this->query($query));
+		return $this->fetch_array($this->query($query));
 	}
 	
 	/**
@@ -164,7 +164,12 @@ class MySQL
 		$query .= $orderby;
 		$query .= $limit;
 		
-		return $this->query($query);
+		$rows = array();
+		$result = $this->query($query);
+		while($row = $this->fetch_array($result))
+			$rows[] = $row;
+		
+		return $rows;
 	}
 	
 	/**

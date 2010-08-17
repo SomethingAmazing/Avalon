@@ -18,7 +18,7 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Hello extends Controller
+class Hello extends AppController
 {
 	public function HelloWorld()
 	{

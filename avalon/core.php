@@ -41,6 +41,15 @@ $router = loadclass('router');
 $controller = $router->controller;
 $method = $router->method;
 
+$hooks->hook('pre_controller');
+
+// Check if an app controller exists
+if(file_exists(APPPATH.'appcontroller.php'))
+	require(APPPATH.'appcontroller.php');
+// There isnt..
+else
+	require(BASEPATH.'avalon/appcontroller.php');
+
 // Load the controller
 $hooks->hook('pre_controller');
 if(file_exists(APPPATH.'controllers/'.$controller.'.php'))
@@ -65,8 +74,9 @@ else
 	include(APPPATH.'controllers/errors.php');
 	$avalon = new Errors();
 	$avalon->notFound();
-	exit;
 }
 $hooks->hook('post_controller');
 
 $hooks->hook('post_system');
+
+$avalon->view->display();

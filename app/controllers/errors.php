@@ -18,7 +18,7 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Errors extends Controller
+class Errors extends AppController
 {
 	public function notFound()
 	{
@@ -28,6 +28,5 @@ class Errors extends Controller
 		$this->set('method',$method);
 		
 		$this->view->load('errors/404');
-		$this->view->display();
 	}
 }

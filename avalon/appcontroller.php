@@ -18,11 +18,6 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Welcome extends AppController
+class AppController extends Controller
 {
-	public function index()
-	{
-		$this->load->helper('html');
-		$this->view->load('welcome');
-	}
 }

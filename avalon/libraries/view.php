@@ -28,7 +28,6 @@ class View
 	public function __construct()
 	{
 		$this->ob_level = ob_get_level();
-		$this->keys();
 	}
 	
 	/**
@@ -39,11 +38,10 @@ class View
 	 */
 	public function load($view,$return=false)
 	{
-		$this->keys();
-		$this->view =& $this;
+		$avalon = getAvalon();
+		$this->accessibles();
 		
 		// Get variables set from the controller (or other places).
-		$avalon =& getAvalon();
 		foreach($avalon->vars as $var => $value)
 			$$var = $value;
 		
@@ -87,10 +85,20 @@ class View
 	 */
 	public function display($layout='default')
 	{
+		$avalon = getAvalon();
+		$this->accessibles();
+		
+		// Get variables set from the controller (or other places).
+		foreach($avalon->vars as $var => $value)
+			$$var = $value;
+		
+		// Make helpers easily accessible.
+		foreach($this->helpers as $helper_name => $helper)
+			$$helper_name = $helper;
+		
 		$output = $this->final_output;
 		
-		if($layout == '')
-			$layout = 'default';
+		if($layout == '') $layout = 'default';
 		
 		// Check if layout exists.
 		if(!file_exists(APPPATH.'views/_layouts/'.$layout.'.php'))
@@ -111,7 +119,7 @@ class View
 		error('View Error',$message);
 	}
 	
-	private function keys()
+	private function accessibles()
 	{
 		$avalon = getAvalon();
 		
@@ -120,5 +128,7 @@ class View
 			if(!isset($this->$key))
 				$this->$key = $avalon->$key;
 		}
+		
+		$this->view =& $this;
 	}
 }

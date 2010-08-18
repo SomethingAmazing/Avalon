@@ -18,6 +18,10 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * MySQL driver
+ * @package Avalon
+ */
 class MySQL
 {
 	private $link;
@@ -30,8 +34,8 @@ class MySQL
 	}
 	
 	/**
-	 * Connect
 	 * Connect to the database.
+	 *
 	 * @param string $server Server address
 	 * @param string $username Username on the server
 	 * @param string $password Password for the user
@@ -42,8 +46,8 @@ class MySQL
 	}
 	
 	/**
-	 * Select Database
 	 * Select what database to use.
+	 *
 	 * @param string $database The name of the database
 	 */
 	public function select_db($databse)
@@ -52,8 +56,8 @@ class MySQL
 	}
 	
 	/**
-	 * Query
 	 * Query the selected Database.
+	 *
 	 * @param string $query The query to run.
 	 */
 	public function query($query)
@@ -64,8 +68,8 @@ class MySQL
 	}
 	
 	/**
-	 * Query First
 	 * Query and fetch the array of the first row returned.
+	 *
 	 * @param string $query The query.
 	 */
 	public function query_first($query)
@@ -74,8 +78,8 @@ class MySQL
 	}
 	
 	/**
-	 * Escape String
 	 * Escapes a string for use in a query.
+	 *
 	 * @param string $string String to escape.
 	 * @return string
 	 */
@@ -86,6 +90,7 @@ class MySQL
 	
 	/**
 	 * Shortcut for MySQL::escape_string
+	 *
 	 * @param string $string String to escape.
 	 * @return string
 	 */
@@ -95,8 +100,8 @@ class MySQL
 	}
 	
 	/**
-	 * Real Escape String
 	 * Escapes special characters from a string for use in a query.
+	 *
 	 * @param string $string String to escape.
 	 * @return string
 	 */
@@ -107,6 +112,7 @@ class MySQL
 	
 	/**
 	 * Shortcut for MySQL::real_escape_string
+	 *
 	 * @param string $string String to escape.
 	 * @return string
 	 */
@@ -116,8 +122,9 @@ class MySQL
 	}
 	
 	/**
-	 * Fetch Array
 	 * Returns an array that corresponds to the fetched row.
+	 *
+	 * @param mixed $result The query result.
 	 */
 	public function fetch_array($result)
 	{
@@ -125,8 +132,9 @@ class MySQL
 	}
 	
 	/**
-	 * Num Rows
 	 * Get number of rows in result.
+	 *
+	 * @param mixed $result The query result.
 	 */
 	public function num_rows($result)
 	{
@@ -134,10 +142,11 @@ class MySQL
 	}
 	
 	/**
-	 * Select
 	 * Easy SELECT query builder.
+	 *
 	 * @param string $table Table name to query
 	 * @param array $args Arguments for the query
+	 * @return array
 	 */
 	public function select($table,$args=array())
 	{
@@ -173,8 +182,8 @@ class MySQL
 	}
 	
 	/**
-	 * Insert
 	 * Easy INSERT query builder.
+	 *
 	 * @param string $table Table name to insert into
 	 * @param array $args Arguments for the query
 	 */
@@ -195,8 +204,8 @@ class MySQL
 	}
 	
 	/**
-	 * Delete
 	 * Easy DELETE query builder.
+	 *
 	 * @param string $table Table name to delete from
 	 * @param array $args Arguments for the query
 	 */
@@ -225,8 +234,8 @@ class MySQL
 	}
 	
 	/**
-	 * Insert ID
 	 * Returns the ID of the last inserted row.
+	 * @return integer
 	 */
 	public function insert_id()
 	{
@@ -234,7 +243,6 @@ class MySQL
 	}
 	
 	/**
-	 * Close Connection
 	 * Closes the connection to the database.
 	 */
 	public function close()

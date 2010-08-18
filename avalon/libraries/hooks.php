@@ -18,6 +18,10 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Hook class
+ * @package Avalon
+ */
 class Hooks
 {
 	private $hooks = array();
@@ -31,7 +35,6 @@ class Hooks
 	}
 	
 	/**
-	 * Hook
 	 * Used to execute classes and/or functions linked to the specified hook.
 	 *
 	 * @param string $hook Name of the hook.

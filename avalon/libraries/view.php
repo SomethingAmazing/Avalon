@@ -18,6 +18,10 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * View class
+ * @package Avalon
+ */
 class View
 {
 	private $final_output = '';
@@ -78,7 +82,6 @@ class View
 	}
 	
 	/**
-	 * Display
 	 * Displays the built layout.
 	 *
 	 * @param string $layout The layout file in which to use.

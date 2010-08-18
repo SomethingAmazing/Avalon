@@ -18,6 +18,10 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * URL Router
+ * @package Avalon
+ */
 class Router
 {
 	private $routes = array();

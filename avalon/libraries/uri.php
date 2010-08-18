@@ -18,6 +18,10 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * URI class
+ * @package Avalon
+ */
 class URI
 {
 	public $seg;
@@ -32,6 +36,12 @@ class URI
 		return $this->seg[$segment];
 	}
 	
+	/**
+	 * Creates a URI anchored to the Avalon path.
+	 *
+	 * @param mixed $segments URI Segements
+	 * @return string
+	 */
 	public function anchor($segments)
 	{
 		if(!is_array($segments)) {

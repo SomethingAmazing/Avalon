@@ -18,6 +18,10 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Avalon core class
+ * @package Avalon
+ */
 class Avalon
 {
 	public static $instance;
@@ -43,6 +47,10 @@ class Avalon
 	}
 }
 
+/**
+ * Controller
+ * @package Avalon
+ */
 class Controller extends Avalon {
 	public $vars = array();
 	

@@ -18,14 +18,17 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Loader
+ * @package Avalon
+ */
 class Loader
 {
 	private $classes = array();
 	private $models = array();
 	
 	/**
-	 * Load Library
-	 * Loads a libray/class.
+	 * Library loader.
 	 *
 	 * @param string $class The class name.
 	 * @return object
@@ -59,8 +62,7 @@ class Loader
 	}
 	
 	/**
-	 * Load Model
-	 * Loads a model.
+	 * Model loader.
 	 *
 	 * @param string $class The model name.
 	 * @return bool
@@ -99,10 +101,11 @@ class Loader
 	}
 	
 	/**
-	 * Load Helper
-	 * Loads a helper into the View class.
+	 * Helper loader
 	 *
+	 * Loads a helper into the View class.
 	 * @param string $helper The helper name.
+	 * @return bool
 	 */
 	public function helper($helper)
 	{

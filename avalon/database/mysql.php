@@ -31,6 +31,7 @@ class MySQL
 	{
 		$this->connect($config['server'],$config['username'],$config['password']);
 		$this->select_db($config['database']);
+		$this->prefix = $config['prefix'];
 	}
 	
 	/**
@@ -150,7 +151,7 @@ class MySQL
 	 */
 	public function select($table,$args=array())
 	{
-		$query = 'SELECT * FROM '.$table.' ';
+		$query = 'SELECT * FROM '.$this->prefix.$table.' ';
 		
 		$orderby = (isset($args['orderby']) ? " ORDER BY ".$args['orderby'] : NULL);
 		unset($args['orderby']);
@@ -200,7 +201,7 @@ class MySQL
 		}
 		
 		// Run the query.
-		$this->query("INSERT INTO ".$this->prefix.$table." (".implode(', ',$fields).") VALUES(".implode(', ',$values).")");
+		$this->query("INSERT INTO ".$this->prefix.$this->prefix.$table." (".implode(', ',$fields).") VALUES(".implode(', ',$values).")");
 	}
 	
 	/**
@@ -211,7 +212,7 @@ class MySQL
 	 */
 	public function delete($table,$data=array())
 	{
-		$query = 'DELETE FROM '.$table.' ';
+		$query = 'DELETE FROM '.$this->prefix.$table.' ';
 		
 		$limit = (isset($args['limit']) ? ' LIMIT '.$args['limit'] : NULL);
 		unset($args['limit']);

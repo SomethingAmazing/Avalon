@@ -28,4 +28,5 @@ $database = array(
 	'username'	=> 'root',
 	'password'	=> 'root',
 	'database'	=> 'avalon'
+	'prefix'	=> ''
 );

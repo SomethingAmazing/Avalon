@@ -27,9 +27,9 @@ class HTML
 	 * @param string $url The URL.
 	 * @param string $label The text for the link.
 	 */
-	public function link($url,$label)
+	public function link($url,$label,$title='')
 	{
-		return '<a href="'.$url.'">'.$label.'</a>';
+		return '<a href="'.$url.'"'.($title?'':'title="'.$title.'"').'>'.$label.'</a>';
 	}
 	
 	/**

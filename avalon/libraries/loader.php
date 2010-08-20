@@ -24,8 +24,65 @@
  */
 class Loader
 {
+	private $ob_level;
 	private $classes = array();
 	private $models = array();
+	
+	// Constructor
+	public function __construct()
+	{
+		$this->ob_level = ob_get_level();
+	}
+	
+	/**
+	 * Load View
+	 *
+	 * @param string $file Name of the file.
+	 * @param bool $return Return the view code or not.
+	 */
+	public function view($view,$return=false)
+	{
+		$avalon = getAvalon();
+		
+		$this->uri =& $avalon->uri;
+		
+		// Make helpers easily accessible.
+		$helpers = (object)'helpers';
+		foreach($this->helpers as $helper_name => $helper)
+			$helpers->$helper_name = $helper;
+		
+		// Get variables set from the controller (or other places).
+		foreach($avalon->vars as $var => $value)
+			$$var = $value;
+		
+		if(!file_exists(APPPATH.'views/'.$view.'.php'))
+		{
+			ob_end_clean();
+			$this->error('Error loading view: '.$view);
+		}
+		
+		ob_start();
+		include(APPPATH.'views/'.$view.'.php');
+		
+		// Return the file data if requested
+		if($return)
+		{		
+			$buffer = ob_get_contents();
+			@ob_end_clean();
+			return $buffer;
+		}
+		
+		if(ob_get_level() > $this->ob_level + 1)
+		{
+			ob_end_flush();
+		}
+		else
+		{
+			global $output;
+			$output->append_output(ob_get_contents());
+			@ob_end_clean();
+		}
+	}
 	
 	/**
 	 * Library loader.
@@ -57,8 +114,13 @@ class Loader
 		$this->classes[$class]->db =& $avalon->db;
 		$this->classes[$class]->uri =& $avalon->uri;
 		$this->classes[$class]->load =& $avalon->load;
+		$avalon->$class = $this->classes[$class];
 		
-		return $this->classes[$class];
+		// Assign to models
+		foreach($this->models as $model)
+			$model->$class =& $this->classes[$class];
+		
+		return true;
 	}
 	
 	/**
@@ -109,7 +171,7 @@ class Loader
 	 */
 	public function helper($helper)
 	{
-		if(isset($this->helpers[$helper])) return $this->helpers[$helper];
+		if(isset($this->helpers[$helper])) return true;
 		
 		if(file_exists(BASEPATH.'avalon/helpers/'.$helper.'.php'))
 		{
@@ -124,26 +186,28 @@ class Loader
 			return false;
 		}
 		
-		$this->helpers[$helper] = new $helper();
+		$name = $helper.'Helper';
+		$this->helpers[$helper] = new $name();
 		
 		// Assign core libraries
 		$avalon =& getAvalon();
 		$this->helpers[$helper]->load =& $avalon->load;
 		$this->helpers[$helper]->uri =& $avalon->uri;
-		$avalon->view->helpers[$helper] =& $this->helpers[$helper];
+		
+		// Assign other helpers
+		foreach($this->helpers as $helper_name => $helper_obj)
+		{
+			if($helper_name == $helper) continue;	
+			$this->helpers[$helper]->$helper_name = $helper_obj;
+		}
+		
+		// Assign to other helpers
+		foreach($this->helpers as $helper_obj)
+		{
+			if($helper_name == $helper) continue;	
+			$helper_obj =& $this->helpers[$helper];
+		}
 		
 		return true;
-	}
-	
-	// probably dont need this?
-	private function getKeys()
-	{
-		$avalon = getAvalon();
-		
-		foreach(array_keys(get_object_vars($avalon)) as $key)
-		{
-			if(!isset($this->$key))
-				$this->$key = $avalon->$key;
-		}
 	}
 }

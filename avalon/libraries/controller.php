@@ -35,10 +35,9 @@ class Avalon
 		foreach(loaded_classes() as $var => $class)
 			$this->$var =& loadclass($class);
 		
-		$this->load		=& loadclass('loader');
-		$this->db		=& $db;
-		$this->uri		= $this->load->library('uri');
-		$this->view		= $this->load->library('view');
+		$this->load	=& loadclass('loader');
+		$this->db	=& $db;
+		$this->load->library('uri');
 	}
 	
 	public static function &get_instance()

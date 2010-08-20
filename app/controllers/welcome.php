@@ -23,6 +23,6 @@ class Welcome extends AppController
 	public function index()
 	{
 		$this->load->helper('html');
-		$this->view->load('welcome');
+		$this->load->view('welcome');
 	}
 }

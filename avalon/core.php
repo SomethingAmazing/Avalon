@@ -25,8 +25,11 @@ require(BASEPATH.'avalon/common.php');
 require(BASEPATH.'avalon/libraries/controller.php');
 
 // Hooks
-$hooks = loadclass('hooks');
+$hooks =& loadclass('hooks');
 $hooks->hook('pre_system');
+
+// Output
+$output =& loadclass('output');
 
 // Database
 require(APPPATH.'config/database.php');
@@ -79,4 +82,4 @@ $hooks->hook('post_controller');
 
 $hooks->hook('post_system');
 
-$avalon->view->display();
+$output->display();

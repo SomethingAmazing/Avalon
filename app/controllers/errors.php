@@ -27,6 +27,6 @@ class Errors extends AppController
 		$this->set('controller',$controller);
 		$this->set('method',$method);
 		
-		$this->view->load('errors/404');
+		$this->load->view('errors/404');
 	}
 }

@@ -18,7 +18,7 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class HTML
+class HTMLHelper
 {
 	/**
 	 * Link
@@ -27,9 +27,9 @@ class HTML
 	 * @param string $url The URL.
 	 * @param string $label The text for the link.
 	 */
-	public function link($url,$label,$title='')
+	public function link($url,$label,$opts=array())
 	{
-		return '<a href="'.$url.'"'.($title?'':'title="'.$title.'"').'>'.$label.'</a>';
+		return '<a href="'.$url.'"'.($opts['title'] ? ' title="'.$ops['class'].'"' : '').($opts['class'] ? ' class="'.$opts['class'].'"' : '').'>'.$label.'</a>';
 	}
 	
 	/**

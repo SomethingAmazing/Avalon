@@ -27,6 +27,6 @@ $database = array(
 	'server'	=> 'localhost',
 	'username'	=> 'root',
 	'password'	=> 'root',
-	'database'	=> 'avalon'
+	'database'	=> 'avalon',
 	'prefix'	=> ''
 );

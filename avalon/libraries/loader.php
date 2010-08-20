@@ -163,9 +163,8 @@ class Loader
 	}
 	
 	/**
-	 * Helper loader
+	 * Loads a helper.
 	 *
-	 * Loads a helper into the View class.
 	 * @param string $helper The helper name.
 	 * @return bool
 	 */
@@ -186,27 +185,7 @@ class Loader
 			return false;
 		}
 		
-		$name = $helper.'Helper';
-		$this->helpers[$helper] = new $name();
-		
-		// Assign core libraries
-		$avalon =& getAvalon();
-		$this->helpers[$helper]->load =& $avalon->load;
-		$this->helpers[$helper]->uri =& $avalon->uri;
-		
-		// Assign other helpers
-		foreach($this->helpers as $helper_name => $helper_obj)
-		{
-			if($helper_name == $helper) continue;	
-			$this->helpers[$helper]->$helper_name = $helper_obj;
-		}
-		
-		// Assign to other helpers
-		foreach($this->helpers as $helper_obj)
-		{
-			if($helper_name == $helper) continue;	
-			$helper_obj =& $this->helpers[$helper];
-		}
+		$this->helpers[$helper] = true;
 		
 		return true;
 	}

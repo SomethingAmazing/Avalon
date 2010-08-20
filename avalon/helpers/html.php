@@ -18,39 +18,33 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class HTMLHelper
+/**
+ * Returns the HTML for a basic <a> tag.
+ *
+ * @param string $url The URL.
+ * @param string $label The text for the link.
+ */
+function link($url,$label,$opts=array())
 {
-	/**
-	 * Link
-	 * Returns the HTML for a basic <a> tag.
-	 *
-	 * @param string $url The URL.
-	 * @param string $label The text for the link.
-	 */
-	public function link($url,$label,$opts=array())
-	{
-		return '<a href="'.$url.'"'.($opts['title'] ? ' title="'.$opts['title'].'"' : '').($opts['class'] ? ' class="'.$opts['class'].'"' : '').'>'.$label.'</a>';
-	}
-	
-	/**
-	 * CSS
-	 * Returns the code to include a CSS file.
-	 *
-	 * @param string $file The path to the CSS file.
-	 */
-	public function css($file,$media='screen')
-	{
-		return '<link href="'.$file.'" media="'.$media.'" rel="stylesheet" type="text/css" />';
-	}
-	
-	/**
-	 * JavaScript
-	 * Returns the code to include a JavaScript file.
-	 *
-	 * @param string $file The path to the JavaScript file.
-	 */
-	public function js($file)
-	{
-		return '<script src="'.$file.'" type="text/javascript"></script>';
-	}
+	return '<a href="'.$url.'"'.($opts['title'] ? ' title="'.$opts['title'].'"' : '').($opts['class'] ? ' class="'.$opts['class'].'"' : '').'>'.$label.'</a>';
+}
+
+/**
+ * Returns the code to include a CSS file.
+ *
+ * @param string $file The path to the CSS file.
+ */
+function css_include_tag($file,$media='screen')
+{
+	return '<link href="'.$file.'" media="'.$media.'" rel="stylesheet" type="text/css" />';
+}
+
+/**
+ * Returns the code to include a JavaScript file.
+ *
+ * @param string $file The path to the JavaScript file.
+ */
+function js_include_tag($file)
+{
+	return '<script src="'.$file.'" type="text/javascript"></script>';
 }

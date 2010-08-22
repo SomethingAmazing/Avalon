@@ -25,7 +25,8 @@
 class MySQL
 {
 	private $link;
-	private $queries = 0;
+	public $queries = 0;
+	private $results = array();
 	
 	public function __construct($config)
 	{
@@ -174,10 +175,14 @@ class MySQL
 		$query .= $orderby;
 		$query .= $limit;
 		
+		if(isset($this->results[md5($query)])) return $this->results[md5($query)];
+		
 		$rows = array();
 		$result = $this->query($query);
 		while($row = $this->fetch_array($result))
 			$rows[] = $row;
+		
+		$this->results[md5($query)] = $rows;
 		
 		return $rows;
 	}

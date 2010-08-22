@@ -146,14 +146,16 @@ class Loader
 			return false;
 		}
 		
-		$this->models[$model] = new $model();
+		$name = $model.'Model';
+		$this->models[$model] = new $name();
 		
 		// Assign core libraries and models
 		$avalon =& getAvalon();
-		$avalon->$model =& $this->models[$model];
 		foreach(array_keys(get_object_vars($avalon)) as $key)
-			if(!isset($this->classes[$class]->$key) && is_object($avalon->$key))
-				$this->classes[$class]->$key =& $avalon->$key;
+			if(!isset($this->models[$model]->$key))
+				$this->models[$model]->$key =& $avalon->$key;
+		
+		$avalon->$model =& $this->models[$model];
 		
 		// Assign to libraries
 		foreach($this->classes as $class)

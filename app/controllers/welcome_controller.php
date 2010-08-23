@@ -18,7 +18,7 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Welcome extends AppController
+class WelcomeController extends AppController
 {
 	public function index()
 	{

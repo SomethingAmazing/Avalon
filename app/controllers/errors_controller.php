@@ -18,7 +18,7 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Errors extends AppController
+class ErrorsController extends AppController
 {
 	public function notFound()
 	{

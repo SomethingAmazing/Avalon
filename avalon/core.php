@@ -42,6 +42,8 @@ if($database['enable'])
 // Router
 $router = loadclass('router');
 $controller = $router->controller;
+$controller_file = $router->controller.'_controller';
+$controller_class = str_replace('_','',$router->controller).'Controller';
 $method = $router->method;
 
 $hooks->hook('pre_controller');
@@ -55,14 +57,14 @@ else
 
 // Load the controller
 $hooks->hook('pre_controller');
-if(file_exists(APPPATH.'controllers/'.$controller.'.php'))
+if(file_exists(APPPATH.'controllers/'.$controller_file.'.php'))
 {
-	include(APPPATH.'controllers/'.$controller.'.php');
+	include(APPPATH.'controllers/'.$controller_file.'.php');
 	
 	// Check if the method exists..
-	if(method_exists($controller,$method))
+	if(method_exists($controller_class,$method))
 	{
-		$avalon = new $controller();
+		$avalon = new $controller_class();
 		$avalon->$method();
 	}
 	// The method doesn't exist, output the error.
@@ -74,8 +76,8 @@ if(file_exists(APPPATH.'controllers/'.$controller.'.php'))
 // Controller doesn't exist, load error controller
 else
 {
-	include(APPPATH.'controllers/errors.php');
-	$avalon = new Errors();
+	include(APPPATH.'controllers/errors_controller.php');
+	$avalon = new ErrorsController();
 	$avalon->notFound();
 }
 $hooks->hook('post_controller');

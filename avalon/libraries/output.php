@@ -54,6 +54,23 @@ class Output
 		if(!file_exists(APPPATH.'views/_layouts/'.$layout.'.php'))
 			$this->error('Error loading layout: '.$layout);
 		
+		ob_start();
 		require(APPPATH.'views/_layouts/'.$layout.'.php');
+		$output = ob_get_contents();
+		ob_end_clean();
+		
+		if(extension_loaded('zlib'))
+		{
+			if(isset($_SERVER['HTTP_ACCEPT_ENCODING']) and strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false)
+			{
+				ob_start('ob_gzhandler');
+			}
+		}
+		
+		header("X-Avalon: ".AVALONVER);
+		
+		$memory	 = (!function_exists('memory_get_usage')) ? '0' : round(memory_get_usage()/1024/1024, 2).'MB';
+		$output = str_replace(array('{memory_useage}'),array($memory),$output);
+		echo $output;
 	}
 }

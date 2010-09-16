@@ -18,13 +18,19 @@
  * along with Avalon. If not, see <http://www.gnu.org/licenses/>.
  */
 
+function anchor($url,$label)
+{
+	global $avalon;
+	return alink($avalon->uri->anchor($url),$label);
+}
+
 /**
  * Returns the HTML for a basic <a> tag.
  *
  * @param string $url The URL.
  * @param string $label The text for the link.
  */
-function link($url,$label,$opts=array())
+function alink($url,$label,$opts=array())
 {
 	return '<a href="'.$url.'"'.($opts['title'] ? ' title="'.$opts['title'].'"' : '').($opts['class'] ? ' class="'.$opts['class'].'"' : '').'>'.$label.'</a>';
 }

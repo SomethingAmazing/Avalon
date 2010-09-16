@@ -13,5 +13,5 @@ You can add and modify routes to controllers in the <code>routes.php</code> file
 <p>
 	If you want to setup a route to the <code>HelloWorld</code> method in the <code>Hello</code> controller, open the routes config file and add the follwing line:
 	<pre>$routes['hello-world'] = 'Hello/HelloWorld';</pre>
-	This will allow you to access the method via <?php echo link($this->uri->anchor('hello-world'),'/hello-world',array('class'=>'test')); ?></a>
+	This will allow you to access the method via <?php echo anchor('hello-world','/hello-world'); ?></a>
 </p>

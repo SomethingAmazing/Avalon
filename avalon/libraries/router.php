@@ -34,7 +34,8 @@ class Router
 		$this->routes = array_merge($this->routes,$routes);
 		
 		// Get URI segments
-		$request = trim($_SERVER['PATH_INFO'],'/');
+		if(!isset($_SERVER['ORIG_PATH_INFO'])) $_SERVER['ORIG_PATH_INFO'] = '';
+		$request = trim((isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : $_SERVER['ORIG_PATH_INFO']),'/');
 		
 		// Check if we only have one route
 		if(count($this->routes) == 1)

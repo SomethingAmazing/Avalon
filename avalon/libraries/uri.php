@@ -28,7 +28,8 @@ class URI
 	
 	public function __construct()
 	{
-		$this->seg = explode('/',trim(($_SERVER['PATH_INFO'] != '' ? $_SERVER['PATH_INFO'] : $_SERVER['ORIG_PATH_INFO']),'/'));
+		if(!isset($_SERVER['ORIG_PATH_INFO'])) $_SERVER['ORIG_PATH_INFO'] = '';
+		$this->seg = explode('/',trim((isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : $_SERVER['ORIG_PATH_INFO']),'/'));
 	}
 	
 	public function seg($segment)

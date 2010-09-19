@@ -30,9 +30,9 @@ function anchor($url,$label)
  * @param string $url The URL.
  * @param string $label The text for the link.
  */
-function alink($url,$label,$opts=array())
+function alink($url,$label,$args=array())
 {
-	return '<a href="'.$url.'"'.($opts['title'] ? ' title="'.$opts['title'].'"' : '').($opts['class'] ? ' class="'.$opts['class'].'"' : '').'>'.$label.'</a>';
+	return '<a href="'.$url.'"'.(isset($args['title']) ? ' title="'.$args['title'].'"' : '').(isset($args['class']) ? ' class="'.$args['class'].'"' : '').'>'.$label.'</a>';
 }
 
 /**

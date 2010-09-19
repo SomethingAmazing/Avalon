@@ -31,7 +31,7 @@ class Hooks
 		// Fetch hooks config
 		require(APPPATH.'config/hooks.php');
 		
-		if(is_array($hooks)) $this->hooks = array_merge($hooks,$this->hooks);
+		if(isset($hooks) && is_array($hooks)) $this->hooks = array_merge($hooks,$this->hooks);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ class Hooks
 	 */
 	public function hook($hook)
 	{
-		if(!isset($this->hooks[$hook])) return flase;
+		if(!isset($this->hooks[$hook])) return false;
 		
 		if(is_array($this->hooks[$hook]) && isset($this->hooks[$hook][0]))
 		{

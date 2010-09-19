@@ -32,7 +32,7 @@ class Output
 	 *
 	 * @param string $layout The layout file in which to use.
 	 */
-	public function display()
+	public function display($layout='')
 	{
 		global $avalon;
 		$this->uri = $avalon->uri;

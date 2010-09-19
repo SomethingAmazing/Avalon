@@ -160,7 +160,7 @@ class MySQL
 		$limit = (isset($args['limit']) ? ' LIMIT '.$args['limit'] : NULL);
 		unset($args['limit']);
 		
-		if(is_array($args['where'])) {
+		if(isset($args['where']) && is_array($args['where'])) {
 			$fields = array();
 			foreach($args['where'] as $field => $value)
 			{
@@ -168,7 +168,7 @@ class MySQL
 			}
 			$fields = ' WHERE '.implode(' AND ',$fields);
 		} else {
-			$fields = $args['where'];
+			$fields = (isset($args['where']) ? $args['where'] : '');
 		}
 		
 		$query .= $fields;
